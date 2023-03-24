@@ -355,6 +355,7 @@
 "Assets/Scripts/EndPoint.cs"
 "Assets/Scripts/EnemyController.cs"
 "Assets/Scripts/EnemySpawner.cs"
+"Assets/Scripts/Projectile.cs"
 "Assets/Scripts/TurretController.cs"
 "Assets/Scripts/UISelector.cs"
 -langversion:9.0

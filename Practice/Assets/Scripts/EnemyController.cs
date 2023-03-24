@@ -8,9 +8,14 @@ public class EnemyController : MonoBehaviour
     public float speed;
     private int current;
     private EnemySpawner enemies;
+    [HideInInspector]
+    public int health;
+    public int startingHealth;
 
     void Start() 
-    { 
+    {
+        health = startingHealth;
+
         enemies = FindObjectOfType<EnemySpawner>();
 
         target = new List<Transform>();
@@ -29,6 +34,18 @@ public class EnemyController : MonoBehaviour
             GetComponent<Rigidbody>().MovePosition(pos);
         }
         else current = (current + 1) % target.Count;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+
+        if (health <= 0) 
+        {
+            Debug.Log("Enemy killed");
+            enemies.targets.RemoveAt(0);
+            Destroy(gameObject);
+        }
     }
 
     private void OnTriggerEnter(Collider other)

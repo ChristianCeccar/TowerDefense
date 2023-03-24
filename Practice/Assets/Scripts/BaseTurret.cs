@@ -7,23 +7,30 @@ public class BaseTurret : MonoBehaviour
     public GameObject turretBall;
     public bool isSelected = false;
     public float rotateSpeed;
+    private float fireCountdown;
+    public int damage;
+    public float fireRate;
+    public GameObject projectile;
+    public Transform firePoint;
+    private Transform currentTagret;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Update()
     {
-        
-    }
+        if (fireCountdown <= 0f)
+        {
+            Fire();
+            fireCountdown = 1f / fireRate;
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        fireCountdown -= Time.deltaTime;
     }
 
     public void RotateTowardsEnemy(Transform target)
     {
         if (target != null)
         {
+            currentTagret = target;
+
             Vector3 targetDirection = target.position - turretBall.transform.position;
 
             // The step size is equal to speed times frame time.
@@ -34,6 +41,21 @@ public class BaseTurret : MonoBehaviour
 
             // Calculate a rotation a step closer to the target and applies rotation to this object
             turretBall.transform.rotation = Quaternion.LookRotation(newDirection);
+        }
+    }
+
+    public void Fire()
+    {
+        if (currentTagret != null)
+        {
+            GameObject pro = Instantiate(projectile, firePoint.position, Quaternion.identity);
+            Projectile ball = pro.GetComponent<Projectile>();
+            ball.damage = damage;
+
+            if (ball != null)
+            {
+                ball.Seek(currentTagret);
+            }
         }
     }
 
