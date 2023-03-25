@@ -230,3 +230,4 @@ MonoBehaviour:
   speed: 1
   health: 0
   startingHealth: 5
+  damage: 5

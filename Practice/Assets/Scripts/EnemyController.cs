@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +10,7 @@ public class EnemyController : MonoBehaviour
     [HideInInspector]
     public int health;
     public int startingHealth;
+    public int damage;
 
     void Start() 
     {
@@ -54,6 +54,7 @@ public class EnemyController : MonoBehaviour
         {
             Destroy(gameObject);
             enemies.targets.RemoveAt(0);
+            GameManager.Instance.TakeDamage(damage);
         }
     }
 }

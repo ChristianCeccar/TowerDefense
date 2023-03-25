@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BaseTurret : MonoBehaviour
@@ -16,13 +14,16 @@ public class BaseTurret : MonoBehaviour
 
     private void Update()
     {
-        if (fireCountdown <= 0f)
+        if (isSelected == false)
         {
-            Fire();
-            fireCountdown = 1f / fireRate;
-        }
+            if (fireCountdown <= 0f)
+            {
+                Fire();
+                fireCountdown = 1f / fireRate;
+            }
 
-        fireCountdown -= Time.deltaTime;
+            fireCountdown -= Time.deltaTime;
+        }
     }
 
     public void RotateTowardsEnemy(Transform target)
