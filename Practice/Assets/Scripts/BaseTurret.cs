@@ -1,4 +1,7 @@
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class BaseTurret : MonoBehaviour
 {
@@ -12,8 +15,15 @@ public class BaseTurret : MonoBehaviour
     public Transform firePoint;
     private Transform currentTagret;
 
+    private void Start()
+    {
+        
+    }
+
     private void Update()
     {
+        FindTargetsWithRange();
+
         if (isSelected == false)
         {
             if (fireCountdown <= 0f)
@@ -23,6 +33,17 @@ public class BaseTurret : MonoBehaviour
             }
 
             fireCountdown -= Time.deltaTime;
+        }
+    }
+
+    public void FindTargetsWithRange()
+    {
+        var increment = 10;
+        for (int angle = 0; angle < 360; angle = angle + increment)
+        {
+            var point = transform.position + Quaternion.Euler(0, angle, 0) * Vector3.forward * 2f;
+            var point2 = transform.position + Quaternion.Euler(0, angle + increment, 0) * Vector3.forward * 2f;
+            Debug.DrawLine(point, point2, Color.red);
         }
     }
 

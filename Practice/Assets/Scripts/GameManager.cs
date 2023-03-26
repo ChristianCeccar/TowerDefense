@@ -4,6 +4,8 @@ public class GameManager : MonoBehaviour
 {
     public int playerHealth;
 
+    public int gold;
+
     public UIController uiController;
 
     private static GameManager _instance;
@@ -26,6 +28,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         uiController.SetText("Current Health:", playerHealth);
+        uiController.SetGoldText("Current Gold:", gold);
     }
 
     public void TakeDamage(int damage)
@@ -38,5 +41,12 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("GameOver");
         }
+    }
+
+    public void EnemyKilled(int moneyIncrease)
+    {
+        gold += moneyIncrease;
+        uiController.SetGoldText("Current Gold:", gold);
+        Debug.Log("Current gold:" + " " + gold);
     }
 }

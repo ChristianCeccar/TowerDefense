@@ -6,7 +6,6 @@ public class EnemyController : MonoBehaviour
     public List<Transform> target;
     public float speed;
     private int current;
-    private EnemySpawner enemies;
     [HideInInspector]
     public int health;
     public int startingHealth;
@@ -15,8 +14,6 @@ public class EnemyController : MonoBehaviour
     void Start() 
     {
         health = startingHealth;
-
-        enemies = FindObjectOfType<EnemySpawner>();
 
         target = new List<Transform>();
 
@@ -43,7 +40,7 @@ public class EnemyController : MonoBehaviour
         if (health <= 0) 
         {
             Debug.Log("Enemy killed");
-            enemies.targets.RemoveAt(0);
+            GameManager.Instance.EnemyKilled(1);
             Destroy(gameObject);
         }
     }
@@ -53,7 +50,6 @@ public class EnemyController : MonoBehaviour
         if (other.CompareTag("EndPoint"))
         {
             Destroy(gameObject);
-            enemies.targets.RemoveAt(0);
             GameManager.Instance.TakeDamage(damage);
         }
     }

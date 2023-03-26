@@ -8,8 +8,6 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     private GameObject enemy;
 
-    public List<GameObject> targets = new List<GameObject>();
-
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +16,6 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        targets.Add(Instantiate(enemy, startPosition.position, Quaternion.identity, transform));
+        Instantiate(enemy, startPosition.position, Quaternion.identity, transform);
     }
 }
