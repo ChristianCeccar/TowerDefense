@@ -7,7 +7,6 @@ using UnityEngine;
 public class UISelector : MonoBehaviour
 {
     public GameObject turretPrefab;
-    private bool isSelected = false;
     GameObject currentTurret;
 
     // Start is called before the first frame update
@@ -33,6 +32,9 @@ public class UISelector : MonoBehaviour
     {
         Debug.Log("Turret Pressed");
         currentTurret = Instantiate(turretPrefab, Input.mousePosition, Quaternion.identity);
-        currentTurret.GetComponent<BaseTurret>().isSelected = true;
+        var currentTurretBase = currentTurret.GetComponent<BaseTurret>();
+        currentTurretBase.isSelected = true;
+        currentTurretBase.GetComponentInChildren<SphereCollider>().radius = currentTurretBase.radius * 1.6f;
+        currentTurretBase.DrawCircle(currentTurret, currentTurretBase.radius, 0.1f);
     }
 }

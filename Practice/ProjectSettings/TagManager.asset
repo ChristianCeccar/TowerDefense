@@ -8,6 +8,8 @@ TagManager:
   - Ground
   - Road
   - Turret
+  - TurretRangeCollider
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -15,7 +17,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - RangeDisplay
   - 
   - 
   - 

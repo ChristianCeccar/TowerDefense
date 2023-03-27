@@ -60,3 +60,7 @@ crashlytics-build.properties
 
 Practice/Logs/
 Practice/Library/
+Practice/Library/Bee/
+Practice/Builds/
+Practice/obj/
+Practice/Logs/

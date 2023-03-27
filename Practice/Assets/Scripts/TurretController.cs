@@ -12,13 +12,7 @@ public class TurretController : BaseTurret
     // Update is called once per frame
     void FixedUpdate()
     {
-        //if (enemies.targets != null)
-        //{
-        //    if (enemies.targets.Count > 0)
-        //    {
-        //        RotateTowardsEnemy(enemies.targets[0].transform);
-        //    }
-        //}
+        RotateTowardsEnemy();
     }
 
     private void OnTriggerStay(Collider other)

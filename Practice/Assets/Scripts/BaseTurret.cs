@@ -1,7 +1,4 @@
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class BaseTurret : MonoBehaviour
 {
@@ -14,18 +11,21 @@ public class BaseTurret : MonoBehaviour
     public GameObject projectile;
     public Transform firePoint;
     private Transform currentTagret;
+    public Material lineMat;
+    public float radius;
+    public LayerMask ignoredLayers;
 
     private void Start()
     {
-        
+
     }
 
     private void Update()
     {
-        FindTargetsWithRange();
-
         if (isSelected == false)
         {
+            
+
             if (fireCountdown <= 0f)
             {
                 Fire();
@@ -36,24 +36,69 @@ public class BaseTurret : MonoBehaviour
         }
     }
 
-    public void FindTargetsWithRange()
+    public void SelectedTurret()
     {
-        var increment = 10;
-        for (int angle = 0; angle < 360; angle = angle + increment)
+
+    }
+
+    public void FindTargetsWithRange(Transform target)
+    {
+        currentTagret = target;
+    }
+
+    public void DrawCircle(GameObject container, float radius, float lineWidth)
+    {
+        var segments = 360;
+        var line = container.AddComponent<LineRenderer>();
+        line.useWorldSpace = false;
+        line.startWidth = lineWidth;
+        line.endWidth = lineWidth;
+        line.positionCount = segments + 1;
+        line.material = lineMat;
+
+        var pointCount = segments + 1; // add extra point to make startpoint and endpoint the same to close the circle
+        var points = new Vector3[pointCount];
+
+        for (int i = 0; i < pointCount; i++)
         {
-            var point = transform.position + Quaternion.Euler(0, angle, 0) * Vector3.forward * 2f;
-            var point2 = transform.position + Quaternion.Euler(0, angle + increment, 0) * Vector3.forward * 2f;
-            Debug.DrawLine(point, point2, Color.red);
+            var rad = Mathf.Deg2Rad * (i * 360f / segments);
+            points[i] = new Vector3(Mathf.Sin(rad) * radius, 0, Mathf.Cos(rad) * radius);
+        }
+
+        line.SetPositions(points);
+    }
+
+    private void DisableRange()
+    {
+        var line = GetComponent<LineRenderer>();
+        line.enabled = false;
+    }
+
+    public void EnableRange()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            RaycastHit raycastHit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out raycastHit, 100f, ~ignoredLayers))
+            {
+                if (raycastHit.transform.tag == "Turret")
+                {
+                    Debug.Log(raycastHit.transform);
+                    //Our custom method. 
+                    var line = raycastHit.transform.GetComponent<LineRenderer>();
+
+                    line.enabled = !line.enabled;
+                }
+            }
         }
     }
 
-    public void RotateTowardsEnemy(Transform target)
+    public void RotateTowardsEnemy()
     {
-        if (target != null)
+        if (currentTagret != null)
         {
-            currentTagret = target;
-
-            Vector3 targetDirection = target.position - turretBall.transform.position;
+            Vector3 targetDirection = currentTagret.position - turretBall.transform.position;
 
             // The step size is equal to speed times frame time.
             float singleStep = rotateSpeed * Time.fixedDeltaTime;
@@ -86,6 +131,7 @@ public class BaseTurret : MonoBehaviour
         if (other.transform.CompareTag("Ground") && Input.GetMouseButton(0))
         {
             //placed on ground
+
             isSelected = false;
             Debug.Log("Can be placed");
         }
