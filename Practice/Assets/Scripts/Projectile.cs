@@ -25,7 +25,7 @@ public class Projectile : MonoBehaviour
 
         if(dir.magnitude <= distancePerFrame )
         {
-            Debug.Log("HIT enemy " + target.name);
+            //Debug.Log("HIT enemy " + target.name);
             target.GetComponent<EnemyController>().TakeDamage(damage);
             Destroy(gameObject);
         }

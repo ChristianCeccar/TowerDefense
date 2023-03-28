@@ -12,7 +12,7 @@ public class EnemySpawner : MonoBehaviour
     GameObject currentEnemy;
 
     private int currentWave = 1;
-    private int enemiesToSpawn = 9;
+    public int enemiesToSpawn = 30;
     private int currentEnemiesSpawned = 0;
     private int enemyHealthModifier = 2;
     
@@ -30,10 +30,10 @@ public class EnemySpawner : MonoBehaviour
             currentEnemy = Instantiate(enemyPrefab, startPosition.position, Quaternion.identity, transform);
             yield return new WaitForSeconds(2f);
         }
-        if(currentEnemiesSpawned >= enemiesToSpawn)
-        {
-            StopCoroutine(SpawnEnemy());
-        }
+        //if(currentEnemiesSpawned >= enemiesToSpawn)
+        //{
+        //    StopCoroutine(SpawnEnemy());
+        //}
     }
 
     public void UpdateWaveIndex()

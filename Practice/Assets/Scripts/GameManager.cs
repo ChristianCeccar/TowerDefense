@@ -49,9 +49,9 @@ public class GameManager : MonoBehaviour
     public void EnemyKilled(int moneyIncrease)
     {
         enemiesKilled++;
-        enemySpawner.UpdateWaveIndex();
+        //enemySpawner.UpdateWaveIndex();
         gold += moneyIncrease;
         uiController.SetGoldText("Current Gold:", gold);
-        Debug.Log("Current gold:" + " " + gold);
+        //Debug.Log("Current gold:" + " " + gold);
     }
 }

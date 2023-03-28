@@ -14,6 +14,7 @@ public class BaseTurret : MonoBehaviour
     public Material lineMat;
     public float radius;
     public LayerMask ignoredLayers;
+    private GameObject selectedTurret;
 
     private void Start()
     {
@@ -24,7 +25,7 @@ public class BaseTurret : MonoBehaviour
     {
         if (isSelected == false)
         {
-            
+            SelectedTurret();
 
             if (fireCountdown <= 0f)
             {
@@ -34,11 +35,6 @@ public class BaseTurret : MonoBehaviour
 
             fireCountdown -= Time.deltaTime;
         }
-    }
-
-    public void SelectedTurret()
-    {
-
     }
 
     public void FindTargetsWithRange(Transform target)
@@ -68,13 +64,32 @@ public class BaseTurret : MonoBehaviour
         line.SetPositions(points);
     }
 
-    private void DisableRange()
+    private void DisableRange(GameObject objectToIgnore)
     {
-        var line = GetComponent<LineRenderer>();
-        line.enabled = false;
+        var allTurrets = FindObjectsOfType<TurretController>();
+
+        foreach (var turret in allTurrets)
+        {
+            if (turret != objectToIgnore)
+            {
+                var line = turret.GetComponent<LineRenderer>();
+                line.enabled = false;
+            }
+        }
     }
 
-    public void EnableRange()
+    private void DisableAll()
+    {
+        var allTurrets = FindObjectsOfType<TurretController>();
+
+        foreach (var turret in allTurrets)
+        {
+            var line = turret.GetComponent<LineRenderer>();
+            line.enabled = false;
+        }
+    }
+
+    public void SelectedTurret()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -82,8 +97,15 @@ public class BaseTurret : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out raycastHit, 100f, ~ignoredLayers))
             {
-                if (raycastHit.transform.tag == "Turret")
+                if (raycastHit.transform == gameObject.transform)
                 {
+                    DisableRange(raycastHit.transform.gameObject);
+                    selectedTurret = raycastHit.transform.gameObject;
+
+                    var turret = selectedTurret.GetComponent<TurretController>();
+
+                    Debug.Log("Damage " + turret.damage + " range " + turret.radius + " attack speed " + turret.fireRate);
+
                     Debug.Log(raycastHit.transform);
                     //Our custom method. 
                     var line = raycastHit.transform.GetComponent<LineRenderer>();

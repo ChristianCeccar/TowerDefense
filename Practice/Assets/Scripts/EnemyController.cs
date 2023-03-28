@@ -39,7 +39,7 @@ public class EnemyController : MonoBehaviour
 
         if (health <= 0) 
         {
-            Debug.Log("Enemy killed");
+            //Debug.Log("Enemy killed");
             GameManager.Instance.EnemyKilled(5);
             Destroy(gameObject);
         }

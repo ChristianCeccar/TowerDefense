@@ -255,7 +255,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -96.4, y: -53.700012}
+  m_AnchoredPosition: {x: -96.3999, y: -53.69995}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 1, y: 1}
 --- !u!1 &817774916
@@ -293,7 +293,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -96.4, y: -148.01}
+  m_AnchoredPosition: {x: -96.3999, y: -148.01001}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &817774918
@@ -814,7 +814,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerHealth: 50
-  gold: 50
+  gold: 150
   uiController: {fileID: 894452173}
   enemySpawner: {fileID: 1957716345}
   enemiesKilled: 0
@@ -1096,6 +1096,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startPosition: {fileID: 1934761999963877439}
   enemyPrefab: {fileID: 7130320532981269681, guid: 0cb8fa18375bf3649939c15bb39bba0a, type: 3}
+  enemiesToSpawn: 30
 --- !u!4 &1957716346
 Transform:
   m_ObjectHideFlags: 0
