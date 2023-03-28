@@ -30,11 +30,20 @@ public class UISelector : MonoBehaviour
 
     public void OnTurretClicked()
     {
-        Debug.Log("Turret Pressed");
-        currentTurret = Instantiate(turretPrefab, Input.mousePosition, Quaternion.identity);
-        var currentTurretBase = currentTurret.GetComponent<BaseTurret>();
-        currentTurretBase.isSelected = true;
-        currentTurretBase.GetComponentInChildren<SphereCollider>().radius = currentTurretBase.radius * 1.6f;
-        currentTurretBase.DrawCircle(currentTurret, currentTurretBase.radius, 0.1f);
+        if (GameManager.Instance.gold >= Globals.baseTurretPrice)
+        {
+            GameManager.Instance.gold -= Globals.baseTurretPrice;
+            GameManager.Instance.uiController.SetGoldText("Current Gold:", GameManager.Instance.gold);
+            Debug.Log("Turret Pressed");
+            currentTurret = Instantiate(turretPrefab, Input.mousePosition, Quaternion.identity);
+            var currentTurretBase = currentTurret.GetComponent<BaseTurret>();
+            currentTurretBase.isSelected = true;
+            currentTurretBase.GetComponentInChildren<SphereCollider>().radius = currentTurretBase.radius * 1.6f;
+            currentTurretBase.DrawCircle(currentTurret, currentTurretBase.radius, 0.1f);
+        }
+        else
+        {
+            Debug.Log("you do not have enough money to buy this turret");
+        }
     }
 }

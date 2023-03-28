@@ -7,8 +7,11 @@ public class GameManager : MonoBehaviour
     public int gold;
 
     public UIController uiController;
+    public EnemySpawner enemySpawner;
 
     private static GameManager _instance;
+
+    public int enemiesKilled;
 
     public static GameManager Instance { get { return _instance; } }
 
@@ -45,6 +48,8 @@ public class GameManager : MonoBehaviour
 
     public void EnemyKilled(int moneyIncrease)
     {
+        enemiesKilled++;
+        enemySpawner.UpdateWaveIndex();
         gold += moneyIncrease;
         uiController.SetGoldText("Current Gold:", gold);
         Debug.Log("Current gold:" + " " + gold);

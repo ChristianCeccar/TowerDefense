@@ -229,7 +229,7 @@ MonoBehaviour:
   turretBall: {fileID: 5352479437491995054}
   isSelected: 0
   rotateSpeed: 1.5
-  damage: 2
+  damage: 3
   fireRate: 1
   projectile: {fileID: 3639114756859520783, guid: 9747fa20d21b6d0458cebd06a327163c, type: 3}
   firePoint: {fileID: 2020007305607769663}
