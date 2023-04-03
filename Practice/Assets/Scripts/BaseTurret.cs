@@ -23,6 +23,16 @@ public class BaseTurret : MonoBehaviour
 
     private void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            DisableAll();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Delete))
+        {
+            SellTurret();
+        }
+
         if (isSelected == false)
         {
             SelectedTurret();
@@ -64,13 +74,13 @@ public class BaseTurret : MonoBehaviour
         line.SetPositions(points);
     }
 
-    private void DisableRange(GameObject objectToIgnore)
+    public void DisableRange(GameObject objectToIgnore)
     {
         var allTurrets = FindObjectsOfType<TurretController>();
 
         foreach (var turret in allTurrets)
         {
-            if (turret != objectToIgnore)
+            if (turret.transform != objectToIgnore.transform)
             {
                 var line = turret.GetComponent<LineRenderer>();
                 line.enabled = false;
@@ -78,7 +88,7 @@ public class BaseTurret : MonoBehaviour
         }
     }
 
-    private void DisableAll()
+    public void DisableAll()
     {
         var allTurrets = FindObjectsOfType<TurretController>();
 
@@ -99,9 +109,9 @@ public class BaseTurret : MonoBehaviour
             {
                 if (raycastHit.transform == gameObject.transform)
                 {
-                    DisableRange(raycastHit.transform.gameObject);
                     selectedTurret = raycastHit.transform.gameObject;
 
+                    DisableRange(selectedTurret);
                     var turret = selectedTurret.GetComponent<TurretController>();
 
                     Debug.Log("Damage " + turret.damage + " range " + turret.radius + " attack speed " + turret.fireRate);
@@ -145,6 +155,15 @@ public class BaseTurret : MonoBehaviour
             {
                 ball.Seek(currentTagret);
             }
+        }
+    }
+
+    public void SellTurret()
+    {
+        if (selectedTurret != null)
+        {
+            Debug.Log("Selected turret " + selectedTurret);
+            //Destroy(selectedTurret);
         }
     }
 

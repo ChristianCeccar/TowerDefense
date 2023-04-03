@@ -7,7 +7,9 @@ using UnityEngine;
 public class UISelector : MonoBehaviour
 {
     public GameObject turretPrefab;
+    public GameObject secondturretPrefab;
     GameObject currentTurret;
+    int counter;
 
     // Start is called before the first frame update
     void Start()
@@ -28,18 +30,31 @@ public class UISelector : MonoBehaviour
         }
     }
 
-    public void OnTurretClicked()
+    public void OnBaseTurretClicked()
     {
-        if (GameManager.Instance.gold >= Globals.baseTurretPrice)
+        BaseTurretIcons(Globals.baseTurretPrice, turretPrefab);
+    }
+
+    public void OnSecondTurretClicked()
+    {
+        BaseTurretIcons(Globals.secondTurretPrice, secondturretPrefab);
+    }
+
+    private void BaseTurretIcons(int turretPrice, GameObject turret)
+    {
+        if (GameManager.Instance.gold >= turretPrice)
         {
-            GameManager.Instance.gold -= Globals.baseTurretPrice;
+            counter++;
+            GameManager.Instance.gold -= turretPrice;
             GameManager.Instance.uiController.SetGoldText("Current Gold:", GameManager.Instance.gold);
             Debug.Log("Turret Pressed");
-            currentTurret = Instantiate(turretPrefab, Input.mousePosition, Quaternion.identity);
+            currentTurret = Instantiate(turret, Input.mousePosition, Quaternion.identity);
             var currentTurretBase = currentTurret.GetComponent<BaseTurret>();
+            currentTurretBase.transform.name = "Turret " + counter.ToString();
             currentTurretBase.isSelected = true;
             currentTurretBase.GetComponentInChildren<SphereCollider>().radius = currentTurretBase.radius * 1.6f;
             currentTurretBase.DrawCircle(currentTurret, currentTurretBase.radius, 0.1f);
+            currentTurretBase.DisableRange(currentTurret);
         }
         else
         {

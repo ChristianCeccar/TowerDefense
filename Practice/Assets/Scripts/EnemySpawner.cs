@@ -41,13 +41,13 @@ public class EnemySpawner : MonoBehaviour
         if(GameManager.Instance.enemiesKilled == enemiesToSpawn)
         {
             currentWave++;
-            enemiesToSpawn = 0;
-            currentEnemiesSpawned = 0;
-            GameManager.Instance.enemiesKilled = 0;
-            var enemy = currentEnemy.GetComponent<EnemyController>();
-            enemy.health *= enemyHealthModifier;
-            Debug.Log("Wave Over current wave " + currentWave);
-            StartCoroutine(SpawnEnemy());
+            //enemiesToSpawn = 0;
+            //currentEnemiesSpawned = 0;
+            //GameManager.Instance.enemiesKilled = 0;
+            //var enemy = currentEnemy.GetComponent<EnemyController>();
+            //enemy.health *= enemyHealthModifier;
+            //Debug.Log("Wave Over current wave " + currentWave);
+            //StartCoroutine(SpawnEnemy());
         }
     }
 }

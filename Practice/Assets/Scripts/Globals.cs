@@ -9,6 +9,7 @@ public class Globals : MonoBehaviour
     public static Globals Instance { get { return _instance; } }
 
     public static int baseTurretPrice = 50; 
+    public static int secondTurretPrice = 75; 
 
     private void Awake()
     {

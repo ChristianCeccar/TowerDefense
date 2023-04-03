@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using PathCreation;
 
 public class EnemyController : MonoBehaviour
 {
@@ -10,27 +11,28 @@ public class EnemyController : MonoBehaviour
     public int health;
     public int startingHealth;
     public int damage;
+    public PathCreator path;
+    float distanceTravelled;
 
     void Start() 
     {
         health = startingHealth;
 
-        target = new List<Transform>();
+        path = FindObjectOfType<PathCreator>();
 
-        foreach (var wayPoint in FindObjectsOfType<EndPoint>())
-        {
-            target.Add(wayPoint.transform);
-        }
+        //target = new List<Transform>();
+
+        //foreach (var wayPoint in FindObjectsOfType<EndPoint>())
+        //{
+        //    target.Add(wayPoint.transform);
+        //}
     }
 
-    void FixedUpdate()
+    void Update()
     {
-        if (transform.position != target[current].position)
-        {
-            Vector3 pos = Vector3.MoveTowards(transform.position, target[current].position, speed * Time.fixedDeltaTime);
-            GetComponent<Rigidbody>().MovePosition(pos);
-        }
-        else current = (current + 1) % target.Count;
+        distanceTravelled += speed * Time.deltaTime;
+
+        transform.position = path.path.GetPointAtDistance(distanceTravelled);
     }
 
     public void TakeDamage(int damage)
@@ -39,7 +41,6 @@ public class EnemyController : MonoBehaviour
 
         if (health <= 0) 
         {
-            //Debug.Log("Enemy killed");
             GameManager.Instance.EnemyKilled(5);
             Destroy(gameObject);
         }
