@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class BaseTurret : MonoBehaviour
@@ -18,7 +19,7 @@ public class BaseTurret : MonoBehaviour
 
     private void Start()
     {
-
+        
     }
 
     private void Update()
@@ -97,6 +98,8 @@ public class BaseTurret : MonoBehaviour
             var line = turret.GetComponent<LineRenderer>();
             line.enabled = false;
         }
+
+        GameManager.Instance.uiController.statsPanel.SetActive(false);
     }
 
     public void SelectedTurret()
@@ -121,6 +124,8 @@ public class BaseTurret : MonoBehaviour
                     var line = raycastHit.transform.GetComponent<LineRenderer>();
 
                     line.enabled = !line.enabled;
+
+                    GameManager.Instance.uiController.SetCurrentTurretStatsUI(damage, radius, fireRate, line.enabled);
                 }
             }
         }

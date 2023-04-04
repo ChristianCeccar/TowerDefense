@@ -802,6 +802,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turretPrefab: {fileID: 1791694040365066950, guid: ab1c42a71276f9a4a8f7310024b7d3c0, type: 3}
+  secondturretPrefab: {fileID: 1791694040365066950, guid: 04cf5bbb23dfaa540aa3885284307042, type: 3}
 --- !u!114 &894452173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2234,7 +2235,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 894452172}
           m_TargetAssemblyTypeName: UISelector, Assembly-CSharp
-          m_MethodName: OnTurretClicked
+          m_MethodName: OnBaseTurretClicked
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

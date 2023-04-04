@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 
@@ -55,6 +55,7 @@ public class UISelector : MonoBehaviour
             currentTurretBase.GetComponentInChildren<SphereCollider>().radius = currentTurretBase.radius * 1.6f;
             currentTurretBase.DrawCircle(currentTurret, currentTurretBase.radius, 0.1f);
             currentTurretBase.DisableRange(currentTurret);
+            GameManager.Instance.uiController.SetCurrentTurretStatsUI(currentTurretBase.damage, currentTurretBase.radius, currentTurretBase.fireRate, true);
         }
         else
         {
