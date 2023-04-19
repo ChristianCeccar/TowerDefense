@@ -13,6 +13,10 @@ public class GameManager : MonoBehaviour
 
     public int enemiesKilled;
 
+    public bool gamePaused = false;
+
+    public GameObject pauseMenu;
+
     public static GameManager Instance { get { return _instance; } }
 
     private void Awake()
@@ -30,8 +34,34 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        ResumeGame();
+
         uiController.SetText("Current Health:", playerHealth);
         uiController.SetGoldText("Current Gold:", gold);
+
+        if(gamePaused == true)
+        {
+            gamePaused = false;
+        }
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyUp(KeyCode.Escape))
+        {
+            if(gamePaused == false)
+            {
+                gamePaused = !gamePaused;
+                pauseMenu.SetActive(gamePaused);
+                PauseGame();
+            }
+            else
+            {
+                gamePaused = !gamePaused;
+                pauseMenu.SetActive(gamePaused);
+                ResumeGame();
+            }
+        }
     }
 
     public void TakeDamage(int damage)
@@ -44,6 +74,17 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("GameOver");
         }
+    }
+
+    void PauseGame()
+    {
+        Time.timeScale = 0;
+
+    }
+
+    void ResumeGame()
+    {
+        Time.timeScale = 1;
     }
 
     public void EnemyKilled(int moneyIncrease)

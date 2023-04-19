@@ -13,7 +13,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void PlayButtonPress()
     {
-        SceneManager.LoadScene("Level 1");
+        SceneManager.LoadScene("Level Select");
     }
 
     public void OptionsButtonPress()

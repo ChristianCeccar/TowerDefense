@@ -37,8 +37,8 @@ public class UIController : MonoBehaviour
     public void SetCurrentTurretStatsUI(int damage, float range, float fireRate, bool selected)
     {
         statsPanel.SetActive(selected);
-        attackspeedText.text = fireRate.ToString();
-        rangeText.text = range.ToString();
-        damageText.text = damage.ToString();
+        attackspeedText.text = "Turret fire rate: " + fireRate.ToString();
+        rangeText.text = "Turret range: " + range.ToString();
+        damageText.text = "Turret damage: " + damage.ToString();
     }
 }

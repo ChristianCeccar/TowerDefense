@@ -19,13 +19,6 @@ public class EnemyController : MonoBehaviour
         health = startingHealth;
 
         path = FindObjectOfType<PathCreator>();
-
-        //target = new List<Transform>();
-
-        //foreach (var wayPoint in FindObjectsOfType<EndPoint>())
-        //{
-        //    target.Add(wayPoint.transform);
-        //}
     }
 
     void Update()
