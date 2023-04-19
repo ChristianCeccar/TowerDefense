@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
+    public GameObject optionsMenu;
+    private bool isOptionsMenuEnabled = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,10 +21,19 @@ public class MainMenuManager : MonoBehaviour
     public void OptionsButtonPress()
     {
         Debug.Log("Options button Pressed");
+        isOptionsMenuEnabled = !isOptionsMenuEnabled;
+        optionsMenu.SetActive(isOptionsMenuEnabled);
     }
 
     public void QuitButtonPress()
     {
-        Debug.Log("Quit button Pressed");
+        Debug.Log("Exit button pressed");
+        Application.Quit();
+    }
+
+    public void BackbuttonPress()
+    {
+        isOptionsMenuEnabled = !isOptionsMenuEnabled;
+        optionsMenu.SetActive(isOptionsMenuEnabled);
     }
 }
