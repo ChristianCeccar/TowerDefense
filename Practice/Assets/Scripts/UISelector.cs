@@ -42,24 +42,31 @@ public class UISelector : MonoBehaviour
 
     private void BaseTurretIcons(int turretPrice, GameObject turret)
     {
-        if (GameManager.Instance.gold >= turretPrice)
+        if (GameManager.Instance.gamePaused == false)
         {
-            counter++;
-            GameManager.Instance.gold -= turretPrice;
-            GameManager.Instance.uiController.SetGoldText("Current Gold:", GameManager.Instance.gold);
-            Debug.Log("Turret Pressed");
-            currentTurret = Instantiate(turret, Input.mousePosition, Quaternion.identity);
-            var currentTurretBase = currentTurret.GetComponent<BaseTurret>();
-            currentTurretBase.transform.name = "Turret " + counter.ToString();
-            currentTurretBase.isSelected = true;
-            currentTurretBase.GetComponentInChildren<SphereCollider>().radius = currentTurretBase.radius * 1.6f;
-            currentTurretBase.DrawCircle(currentTurret, currentTurretBase.radius, 0.1f);
-            currentTurretBase.DisableRange(currentTurret);
-            GameManager.Instance.uiController.SetCurrentTurretStatsUI(currentTurretBase.damage, currentTurretBase.radius, currentTurretBase.fireRate, true);
+            if (GameManager.Instance.gold >= turretPrice)
+            {
+                counter++;
+                GameManager.Instance.gold -= turretPrice;
+                GameManager.Instance.uiController.SetGoldText("Current Gold:", GameManager.Instance.gold);
+                Debug.Log("Turret Pressed");
+                currentTurret = Instantiate(turret, Input.mousePosition, Quaternion.identity);
+                var currentTurretBase = currentTurret.GetComponent<BaseTurret>();
+                currentTurretBase.transform.name = "Turret " + counter.ToString();
+                currentTurretBase.isSelected = true;
+                currentTurretBase.GetComponentInChildren<SphereCollider>().radius = currentTurretBase.radius * 1.6f;
+                currentTurretBase.DrawCircle(currentTurret, currentTurretBase.radius, 0.1f);
+                currentTurretBase.DisableRange(currentTurret);
+                GameManager.Instance.uiController.SetCurrentTurretStatsUI(currentTurretBase.damage, currentTurretBase.radius, currentTurretBase.fireRate, true);
+            }
+            else
+            {
+                Debug.Log("you do not have enough money to buy this turret");
+            }
         }
         else
         {
-            Debug.Log("you do not have enough money to buy this turret");
+            Debug.Log("you cannot buy turrets while the game is paused");
         }
     }
 }

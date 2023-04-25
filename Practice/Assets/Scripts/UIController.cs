@@ -6,6 +6,7 @@ public class UIController : MonoBehaviour
 {
     public TextMeshProUGUI playerHealthText;
     public TextMeshProUGUI playerGoldText;
+    public TextMeshProUGUI currentWaveText;
 
     public TextMeshProUGUI damageText;
     public TextMeshProUGUI rangeText;
@@ -32,6 +33,11 @@ public class UIController : MonoBehaviour
     public void SetGoldText(string text, int health)
     {
         playerGoldText.text = text + " " + health;
+    }
+
+    public void SetWave(string text, int wave)
+    {
+        currentWaveText.text = text + ": " + wave;
     }
 
     public void SetCurrentTurretStatsUI(int damage, float range, float fireRate, bool selected)

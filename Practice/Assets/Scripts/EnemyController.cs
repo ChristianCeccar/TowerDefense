@@ -7,7 +7,6 @@ public class EnemyController : MonoBehaviour
     public List<Transform> target;
     public float speed;
     private int current;
-    [HideInInspector]
     public int health;
     public int startingHealth;
     public int damage;
