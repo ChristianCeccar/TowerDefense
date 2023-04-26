@@ -1994,12 +1994,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d3bb34a7e5bc5943b777a3e24221ede, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiController: {fileID: 894452173}
   enemies:
   - enemyPrefab: {fileID: 7130320532981269681, guid: 0cb8fa18375bf3649939c15bb39bba0a, type: 3}
     cost: 1
   - enemyPrefab: {fileID: 7130320532981269681, guid: 92bc5535de78de842a9db2b8388d9e99, type: 3}
     cost: 2
-  currWave: 0
+  currWave: 1
   enemiesToSpawn: []
   spawnLocation:
   - {fileID: 1934761999963877439}

@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
-
+    public UIController uiController;
     public List<Enemy> enemies = new List<Enemy>();
     public int currWave;
     private int waveValue;
@@ -19,49 +20,75 @@ public class WaveManager : MonoBehaviour
     private float spawnTimer;
 
     public List<GameObject> spawnedEnemies = new List<GameObject>();
+
+    public float timer = 0.0f;
+    public int seconds;
+
     // Start is called before the first frame update
     void Start()
     {
         GenerateWave();
+        uiController.SetWave("Current Wave ", currWave);
+    }
+
+    private void Update()
+    {
+        timer += Time.deltaTime;
+        // turn seconds in float to int
+        seconds = (int)(timer % 60);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (spawnTimer <= 0)
-        {
-            //spawn an enemy
-            if (enemiesToSpawn.Count > 0)
-            {
-                GameObject enemy = (GameObject)Instantiate(enemiesToSpawn[0], spawnLocation[spawnIndex].position, Quaternion.identity); // spawn first enemy in our list
-                enemiesToSpawn.RemoveAt(0); // and remove it
-                spawnedEnemies.Add(enemy);
-                spawnTimer = spawnInterval;
+        WaveSetup(5);
+    }
 
-                if (spawnIndex + 1 <= spawnLocation.Length - 1)
+    public void WaveSetup(int timeBetweenWaves)
+    {
+        if (seconds >= timeBetweenWaves)
+        {
+            if (spawnTimer <= 0)
+            {
+                //spawn an enemy
+                if (enemiesToSpawn.Count > 0)
                 {
-                    spawnIndex++;
+                    GameObject enemy = (GameObject)Instantiate(enemiesToSpawn[0], spawnLocation[spawnIndex].position, Quaternion.identity); // spawn first enemy in our list
+                    enemiesToSpawn.RemoveAt(0); // and remove it
+                    spawnedEnemies.Add(enemy);
+                    spawnTimer = spawnInterval;
+
+                    if (spawnIndex + 1 <= spawnLocation.Length - 1)
+                    {
+                        spawnIndex++;
+                    }
+                    else
+                    {
+                        spawnIndex = 0;
+                    }
                 }
                 else
                 {
-                    spawnIndex = 0;
+                    waveTimer = 0; // if no enemies remain, end wave
                 }
             }
             else
             {
-                waveTimer = 0; // if no enemies remain, end wave
+                spawnTimer -= Time.fixedDeltaTime;
+                waveTimer -= Time.fixedDeltaTime;
+            }
+
+            if (waveTimer <= 0 && spawnedEnemies.Count <= 0)
+            {
+                currWave++;
+                timer = 0;
+                uiController.SetWave("Current Wave ", currWave);
+                GenerateWave();
             }
         }
         else
         {
-            spawnTimer -= Time.fixedDeltaTime;
-            waveTimer -= Time.fixedDeltaTime;
-        }
 
-        if (waveTimer <= 0 && spawnedEnemies.Count <= 0)
-        {
-            currWave++;
-            GenerateWave();
         }
     }
 
@@ -82,7 +109,6 @@ public class WaveManager : MonoBehaviour
             }
         }
         waveTimer = waveDuration; // wave duration is read only
- 
     }
 
     public void GenerateEnemies()
@@ -107,7 +133,6 @@ public class WaveManager : MonoBehaviour
             {
                 generatedEnemies.Add(enemies[randEnemyId].enemyPrefab);
                 waveValue -= randEnemyCost;
-                //enemies[randEnemyId].enemyPrefab.GetComponent<EnemyController>().startingHealth = enemies[randEnemyId].enemyPrefab.GetComponent<EnemyController>().startingHealth + currWave;
             }
             else if (waveValue <= 0)
             {
