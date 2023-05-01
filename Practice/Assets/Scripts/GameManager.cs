@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour
     public void EnemyKilled(int moneyIncrease)
     {
         enemiesKilled++;
-        enemySpawner.spawnedEnemies.RemoveAt(0);
+        //enemySpawner.spawnedEnemies.Remove();
         gold += moneyIncrease;
         uiController.SetGoldText("Current Gold:", gold);
         //Debug.Log("Current gold:" + " " + gold);

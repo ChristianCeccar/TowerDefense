@@ -7,6 +7,7 @@ public class UIController : MonoBehaviour
     public TextMeshProUGUI playerHealthText;
     public TextMeshProUGUI playerGoldText;
     public TextMeshProUGUI currentWaveText;
+    public TextMeshProUGUI timeBetweenWavesText;
 
     public TextMeshProUGUI damageText;
     public TextMeshProUGUI rangeText;
@@ -28,6 +29,11 @@ public class UIController : MonoBehaviour
     public void SetText(string text, int health)
     {
         playerHealthText.text = text + " " + health;
+    }
+
+    public void SetTimeWaveText(string text, int seconds)
+    {
+        timeBetweenWavesText.text = text + " " + seconds;
     }
 
     public void SetGoldText(string text, int health)
