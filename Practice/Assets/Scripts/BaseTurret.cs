@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -16,6 +17,7 @@ public class BaseTurret : MonoBehaviour
     public float radius;
     public LayerMask ignoredLayers;
     private GameObject selectedTurret;
+    List<GameObject> currentCollisions = new List<GameObject>();
 
     private void Start()
     {
@@ -174,11 +176,17 @@ public class BaseTurret : MonoBehaviour
 
     public void PlacementCheck(Collider other)
     {
-        if (other.transform.CompareTag("Ground") && Input.GetMouseButton(0))
+        if (other.transform.CompareTag("Map") && Input.GetMouseButton(0))
         {
-            //placed on ground
+            currentCollisions.Add(other.gameObject);
 
-            isSelected = false;
+            // Print the entire list to the console.
+            foreach (GameObject gObject in currentCollisions)
+            {
+                print(gObject.name);
+            }
+                //placed on ground
+                isSelected = false;
             Debug.Log("Can be placed");
         }
     }
