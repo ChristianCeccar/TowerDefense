@@ -21,19 +21,19 @@ public class WaveManager : MonoBehaviour
 
     public List<GameObject> spawnedEnemies = new List<GameObject>();
 
-    public float timer = 0.0f;
+    public float timer = 5f;
     public int seconds;
 
     // Start is called before the first frame update
     void Start()
     {
-        GenerateWave();
+        //GenerateWave();
         uiController.SetWave("Current Wave ", currWave);
     }
 
     private void Update()
     {
-        timer += Time.deltaTime;
+        timer -= Time.deltaTime;
         // turn seconds in float to int
         seconds = (int)(timer % 60);
     }
@@ -41,13 +41,15 @@ public class WaveManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        WaveSetup(5);
+        WaveSetup();
     }
 
-    public void WaveSetup(int timeBetweenWaves)
+    public void WaveSetup()
     {
-        if (seconds >= timeBetweenWaves)
+        if (seconds <= 0)
         {
+            uiController.timeBetweenWavesText.gameObject.SetActive(false);
+
             if (spawnTimer <= 0)
             {
                 //spawn an enemy
@@ -81,14 +83,15 @@ public class WaveManager : MonoBehaviour
             if (waveTimer <= 0 && spawnedEnemies.Count <= 0)
             {
                 currWave++;
-                timer = 0;
+                timer = 5;
                 uiController.SetWave("Current Wave ", currWave);
                 GenerateWave();
             }
         }
         else
         {
-
+            uiController.timeBetweenWavesText.gameObject.SetActive(true);
+            uiController.SetTimeWaveText("Wave Starts in: ", seconds);
         }
     }
 
