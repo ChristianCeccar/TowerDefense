@@ -181,8 +181,6 @@ public class BaseTurret : MonoBehaviour
             //placed on ground
             isSelected = false;
             GameManager.Instance.uiController.isBought = false;
-            //GameManager.Instance.uiController.statsPanel.gameObject.SetActive(false);
-            //GameManager.Instance.uiController.buyButton.SetActive(false);
             Debug.Log("Can be placed");
         }
     }
