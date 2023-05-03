@@ -22,10 +22,13 @@ public class UISelector : MonoBehaviour
     {
         if (currentTurret != null)
         {
-            if (currentTurret.GetComponent<BaseTurret>().isSelected)
+            if (GameManager.Instance.uiController.isBought == true)
             {
-                Vector3 mousePos = Input.mousePosition;
-                currentTurret.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, 8.8f));
+                if (currentTurret.GetComponent<BaseTurret>().isSelected)
+                {
+                    Vector3 mousePos = Input.mousePosition;
+                    currentTurret.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, 8.8f));
+                }
             }
         }
     }
@@ -57,7 +60,7 @@ public class UISelector : MonoBehaviour
                 currentTurretBase.GetComponentInChildren<SphereCollider>().radius = currentTurretBase.radius * 1.6f;
                 currentTurretBase.DrawCircle(currentTurret, currentTurretBase.radius, 0.1f);
                 currentTurretBase.DisableRange(currentTurret);
-                GameManager.Instance.uiController.SetCurrentTurretStatsUI(currentTurretBase.damage, currentTurretBase.radius, currentTurretBase.fireRate, true);
+                GameManager.Instance.uiController.SetCurrentTurretStatsUI(currentTurretBase.damage, currentTurretBase.radius, currentTurretBase.fireRate, true, true);
             }
             else
             {

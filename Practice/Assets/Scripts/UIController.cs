@@ -13,6 +13,8 @@ public class UIController : MonoBehaviour
     public TextMeshProUGUI rangeText;
     public TextMeshProUGUI attackspeedText;
     public GameObject statsPanel;
+    public GameObject buyButton;
+    public bool isBought = false;
 
     // Start is called before the first frame update
     void Start()
@@ -46,11 +48,17 @@ public class UIController : MonoBehaviour
         currentWaveText.text = text + ": " + wave;
     }
 
-    public void SetCurrentTurretStatsUI(int damage, float range, float fireRate, bool selected)
+    public void SetCurrentTurretStatsUI(int damage, float range, float fireRate, bool selected, bool isBuying)
     {
         statsPanel.SetActive(selected);
+        buyButton.SetActive(isBuying);
         attackspeedText.text = "Turret fire rate: " + fireRate.ToString();
         rangeText.text = "Turret range: " + range.ToString();
         damageText.text = "Turret damage: " + damage.ToString();
+    }
+
+    public void IsBoughtTurret()
+    {
+        isBought = !isBought;
     }
 }

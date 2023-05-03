@@ -25,6 +25,7 @@ public class EnemyController : MonoBehaviour
         distanceTravelled += speed * Time.deltaTime;
 
         transform.position = path.path.GetPointAtDistance(distanceTravelled);
+
     }
 
     public void TakeDamage(int damage)

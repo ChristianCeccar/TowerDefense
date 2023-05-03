@@ -21,12 +21,12 @@ public class BaseTurret : MonoBehaviour
 
     private void Start()
     {
-        
+
     }
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             DisableAll();
         }
@@ -127,7 +127,7 @@ public class BaseTurret : MonoBehaviour
 
                     line.enabled = !line.enabled;
 
-                    GameManager.Instance.uiController.SetCurrentTurretStatsUI(damage, radius, fireRate, line.enabled);
+                    GameManager.Instance.uiController.SetCurrentTurretStatsUI(damage, radius, fireRate, line.enabled, false);
                 }
             }
         }
@@ -178,15 +178,11 @@ public class BaseTurret : MonoBehaviour
     {
         if (other.transform.CompareTag("Map") && Input.GetMouseButton(0))
         {
-            currentCollisions.Add(other.gameObject);
-
-            // Print the entire list to the console.
-            foreach (GameObject gObject in currentCollisions)
-            {
-                print(gObject.name);
-            }
-                //placed on ground
-                isSelected = false;
+            //placed on ground
+            isSelected = false;
+            GameManager.Instance.uiController.isBought = false;
+            //GameManager.Instance.uiController.statsPanel.gameObject.SetActive(false);
+            //GameManager.Instance.uiController.buyButton.SetActive(false);
             Debug.Log("Can be placed");
         }
     }
